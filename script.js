@@ -3,16 +3,24 @@ let cards = [];
 let firstCard, secondCard;
 let lockBoard = false;
 let score = 0;
+const imgs = [
+              { "name": "apple", "img": "./Images/apple.jpg" },
+              { "name": "banana", "img": "./Images/banaan.png" },
+              { "name": "cherry", "img": "./Images/cherry.png" },
+              { "name": "grape", "img": "./Images/grape.png" },
+              { "name": "blue", "img": "./Images/blue.png" },
+              { "name": "salad", "img": "./Images/salad.png" },
+              { "name": "taart", "img": "./Images/taart.png" },
+              { "name": "water", "img": "./Images/water.png" }
+]
 
 document.querySelector(".score").textContent = score;
 
-fetch("./data/cards.json")
-  .then((res) => res.json())
-  .then((data) => {
-    cards = [...data, ...data];
-    shuffleCards();
-    generateCards();
-  });
+
+cards = [...imgs, ...imgs];
+shuffleCards();
+generateCards();
+
 
 // Shuffle 9Fisher-Yates algorithm 
 function shuffleCards() {
@@ -35,7 +43,7 @@ function generateCards() {
     cardElement.setAttribute("data-name", card.name);
     cardElement.innerHTML = `
       <div class="front">
-        <img class="front-image" src=${card.image} />
+        <img class="front-image" src=${card.img} />
       </div>
       <div class="back"></div>
     `;
@@ -83,11 +91,13 @@ function unflipCards() {
     resetBoard();
   }, 1000);
 }
+
 function resetBoard() {
     firstCard = null;
     secondCard = null;
     lockBoard = false;
 }
+
 function restart() {
   resetBoard();
   shuffleCards();
